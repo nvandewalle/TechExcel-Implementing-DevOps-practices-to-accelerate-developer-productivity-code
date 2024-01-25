@@ -23,7 +23,7 @@ jobs:
       - name: Set subscription
         run: az account set --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      - name: Create AKS Cluster
+      - name: Deploy Infrastructure
         uses: azure/arm-deploy@v1
         with:
           scope: resourcegroup
