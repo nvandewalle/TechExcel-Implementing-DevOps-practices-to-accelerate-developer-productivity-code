@@ -8,11 +8,6 @@ permissions:
 
 jobs:
   iacDeploy:
-    # if:
-    #   (github.event.action == 'opened' || github.event.action == 'edited') &&
-    #   contains(github.event.issue.labels.*.name, 'cluster:create')
-    if:
-      (github.event.action == 'opened' || github.event.action == 'edited')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
