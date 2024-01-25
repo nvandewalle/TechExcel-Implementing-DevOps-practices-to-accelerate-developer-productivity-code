@@ -6,6 +6,9 @@ permissions:
   id-token: write
   contents: read
 
+env:
+  environment: dev
+
 jobs:
   iacDeploy:
     runs-on: ubuntu-latest
@@ -30,7 +33,7 @@ jobs:
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           resourceGroupName: ${{ secrets.AZURE_RG }}
           template: InfrastructureAsCode/main.bicep
-          # parameters:
-          #   clusterName=${{ fromJson(steps.parse.outputs.payload).ClusterName }}
+          parameters:
+            environment=${{ env.environment }}
           #   nodeCount=${{ fromJson(steps.parse.outputs.payload).NodeCount }}
           #   principalId=${{ fromJson(steps.parse.outputs.payload).PrincipalId }}
