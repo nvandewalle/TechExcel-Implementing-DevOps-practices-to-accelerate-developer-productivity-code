@@ -1,0 +1,41 @@
+name: 🎨 Create AKS Cluster
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  iacDeploy:
+    # if:
+    #   (github.event.action == 'opened' || github.event.action == 'edited') &&
+    #   contains(github.event.issue.labels.*.name, 'cluster:create')
+    if:
+      (github.event.action == 'opened' || github.event.action == 'edited')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Set subscription
+        run: az account set --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Create AKS Cluster
+        uses: azure/arm-deploy@v1
+        with:
+          scope: resourcegroup
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          resourceGroupName: ${{ secrets.AZURE_RG }}
+          template: InfrastructureAsCode/main.bicep
+          # parameters:
+          #   clusterName=${{ fromJson(steps.parse.outputs.payload).ClusterName }}
+          #   nodeCount=${{ fromJson(steps.parse.outputs.payload).NodeCount }}
+          #   principalId=${{ fromJson(steps.parse.outputs.payload).PrincipalId }}
