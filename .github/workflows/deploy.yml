@@ -1,4 +1,4 @@
-name: 🎨 Create AKS Cluster
+name: 🚀 Deploy
 on:
   workflow_dispatch:
 
