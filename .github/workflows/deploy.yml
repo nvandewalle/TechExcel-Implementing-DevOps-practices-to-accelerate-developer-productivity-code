@@ -1,13 +1,15 @@
 name: 🚀 Deploy
 on:
   workflow_dispatch:
+    inputs:
+      environment: 
+        description: 'Environment'     
+        required: true
+        default: 'dev'
 
 permissions:
   id-token: write
   contents: read
-
-env:
-  environment: dev
 
 jobs:
   iacDeploy:
@@ -34,6 +36,6 @@ jobs:
           resourceGroupName: ${{ secrets.AZURE_RG }}
           template: InfrastructureAsCode/main.bicep
           parameters:
-            environment=${{ env.environment }}
+            environment=${{ github.event.inputs.environment }}
           #   nodeCount=${{ fromJson(steps.parse.outputs.payload).NodeCount }}
           #   principalId=${{ fromJson(steps.parse.outputs.payload).PrincipalId }}
