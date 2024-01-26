@@ -13,6 +13,12 @@ on:
     paths: 
     - "Application/**"
 
+env:
+  registryName: tdqi2aiswvebkmpnpreg.azurecr.io
+  repositoryName: techboost/dotnetcoreapp
+  dockerFolderPath: Application/src/RazorPagesTestSample
+  tag: ${{ github.run_number }}
+
 jobs:
   build:
 
