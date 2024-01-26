@@ -72,7 +72,7 @@ jobs:
         images: tdqi2aiswvebkmpnpreg.azurecr.io/techboost/dotnetcoreapp:${{ env.tag }}
 
   load-test:
-    runs-on: ubunut-latest
+    runs-on: ubuntu-latest
     needs: deploy-to-dev  
     steps:
     - name: Checkout GitHub Actions 
